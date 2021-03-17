@@ -10,7 +10,7 @@ public class UserController {
 
 	@GetMapping("/index")
 	public String dashboard() {
-		
+		System.out.println("////////////////////" + "this is the");
 		return "normal/user_dashboard";
 	}
 	

@@ -42,15 +42,31 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
+		
 		auth.authenticationProvider(authenticationProvider());
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
+		
+		
 	http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
 	.antMatchers("/user/**").hasRole("USER")
-	.antMatchers("/**").permitAll().and().formLogin().and().csrf().disable();
+	.antMatchers("/**").permitAll().and().formLogin()
+	
+	// custom login page
+	.loginPage("/signin")
+	//url to submit the username and password(form)
+
+	.loginProcessingUrl("/dologin")
+	
+	//anding page after successful login
+
+	.defaultSuccessUrl("/user/index")
+	//failure page
+	.failureUrl("/login-fail")
+	.and().csrf().disable();
 		}
 	
 	
