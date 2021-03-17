@@ -32,7 +32,7 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		
+		System.out.println("Password" + user.getPassword() + "////////////");
 	return	user.getPassword();
 		
 		
@@ -41,6 +41,8 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
+		System.out.println("Email" + user.getEmail() + "////////////");
+
 		return user.getEmail();
 	}
 
