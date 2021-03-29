@@ -13,10 +13,22 @@ import javax.persistence.Table;
 public class Contact {
 
 	
+//	@Override
+//	public String toString() {
+//		return "Contact [cId=" + cId + ", secondName=" + secondName + ", work=" + work
+//				+ ", email=" + email + ", phone=" + phone + ", image=" + image + ", description=" + description
+//				+ ", user=" + user + "]";
+//	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cId;
-	private String contact;
+	private String name;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	private String secondName;
 	private  String work;
 	private String email;
@@ -35,12 +47,7 @@ public class Contact {
 	public void setcId(int cId) {
 		this.cId = cId;
 	}
-	public String getContact() {
-		return contact;
-	}
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
+	
 	public String getSecondName() {
 		return secondName;
 	}

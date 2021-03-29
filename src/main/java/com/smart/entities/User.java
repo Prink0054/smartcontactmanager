@@ -21,12 +21,12 @@ import javax.validation.constraints.Size;
 public class User {
 
 	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", contacts=" + contacts
-				+ "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
+//				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", contact=" + contact
+//				+ "]";
+//	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -41,9 +41,9 @@ public class User {
 	private String imageUrl;
 	@Column(length = 50)
 	private String about;
-	
+	//mappedBy = "user"
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
-	private List<Contact> contacts = new ArrayList<Contact>();
+	private List<Contact> contact = new ArrayList<Contact>();
 	
 	
 	public User() {
@@ -98,11 +98,11 @@ public class User {
 	public void setAbout(String about) {
 		this.about = about;
 	}
-	public List<Contact> getContacts() {
-		return contacts;
+	public List<Contact> getContact() {
+		return contact;
 	}
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
+	public void setContact(List<Contact> contacts) {
+		this.contact = contact;
 	}
 	
 	

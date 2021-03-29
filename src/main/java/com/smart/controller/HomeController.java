@@ -66,17 +66,17 @@ public class HomeController {
 			if(!agreement) {
 				
 				System.out.println("You have not agreed the terms and conditions");
-				throw	new Exception("You have not agreed the terms and conditions");
+					throw	new Exception("You have not agreed the terms and conditions");
 				
 			}
 			
-			if(results.hasErrors()) {
-				System.out.println("error" + results.toString());
-				model.addAttribute("user",user );
-				
-				return "signup";
-			}
-			
+//			if(results.hasErrors()) {
+//				System.out.println("error" + results.toString());
+//				model.addAttribute("user",user );
+//				
+//				return "signup";
+//			}
+//			
 			//role is NORMAL user "ROLE_USER"
 			//for admin user "ROLE_ADMIN"
 			user.setRole("ROLE_USER");
