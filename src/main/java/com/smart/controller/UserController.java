@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import com.smart.dao.ContactRepository;
 import com.smart.dao.UserRepository;
 import com.smart.entities.Contact;
 import com.smart.entities.User;
+import com.sun.el.stream.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -88,6 +90,7 @@ public class UserController {
 			
 			if(file.isEmpty()) {
 				
+				contact.setImage("contact.png");
 				
 			}
 			else {
@@ -145,7 +148,7 @@ System.out.println(e.getMessage() + "error");
 		
 	User user1 =	userRepository.findByEmail(username);
 		
-Pageable pageRequest =	PageRequest.of(	page, 5);
+Pageable 	pageRequest =	PageRequest.of(	page, 5);
 		
 Page<Contact> contact =	this.contactRepository.findContactsByUser(user1.getId(),pageRequest);	
 	
@@ -155,6 +158,22 @@ model.addAttribute("totalpages",contact.getTotalPages());
 
 	
 		return "normal/show_contacts";
+	}
+	
+	
+	//showing particular contact details
+	@RequestMapping("/{cId}/contact")
+	public String showContactDetail(@PathVariable("cId") Integer cId,Model model) {
+	
+		System.out.println(cId);
+		
+	java.util.Optional<Contact> contactOptional =	this.contactRepository.findById(cId);
+	
+	Contact contact = contactOptional.get();
+	
+	model.addAttribute("contact", contact);
+		return "normal/contact_detail";
+		
 	}
 	
 }
