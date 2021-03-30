@@ -249,5 +249,18 @@ this.userRepository.save(user);
 
 		return "redirect:/user/" + contact.getcId() + "/contact";
 	}
+	
+	
+	//profile handler
+	
+	@GetMapping("/profile")
+	public String yourProfile(Model model) {
+		
+		model.addAttribute("titile", "Profile Page");
+		
+		return "normal/profile";
+	}
+	
+	
 
 }
