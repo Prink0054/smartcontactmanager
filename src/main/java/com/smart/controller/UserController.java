@@ -15,6 +15,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,6 +39,9 @@ import com.sun.el.stream.Optional;
 @RequestMapping("/user")
 public class UserController {
 
+	@Autowired
+	BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	@Autowired
 	UserRepository userRepository;
 
@@ -262,5 +266,42 @@ this.userRepository.save(user);
 	}
 	
 	
+	//open setting handler
+	@GetMapping("/settings")
+	public String openSettings() {
+		
+		return "normal/settings.html";
+	}
+	
+	//change password handler
+	@PostMapping("/change-password")
+	public String changePassword(@RequestParam("oldPassword") String oldPassword,@RequestParam("newPassword") String newPassword,Principal principal) {
+	
+		System.out.println("old password" + oldPassword + "new " + newPassword);
+	//	return "normal/user_dashboard";
+		String userName = principal.getName();
+		User currentuser = this.userRepository.findByEmail(userName);
+		
+		if  (this.bcryptPasswordEncoder.matches(oldPassword, currentuser.getPassword()))
+		{
+			//change password
+			
+			currentuser.setPassword(this.bcryptPasswordEncoder.encode(newPassword));
+			this.userRepository.save(currentuser);
+			return "redirect:/user/index";
+
+			
+		}else {
+			System.out.println("////");
+			return "redirect:/user/settings";
+
+		}
+		
+		
+	
+		
+		
+
+	}
 
 }
